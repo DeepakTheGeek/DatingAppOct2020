@@ -1,6 +1,6 @@
 # DatingApp
 ------------
-The main behind this new repo is to have practice over the latest versions of angular and .NET Core.
+The main reason behind this new repo is to have practice over the latest versions of angular and .NET Core.
 
 
 # DatingApp-SPA(Angular)
