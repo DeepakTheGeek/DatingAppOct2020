@@ -1,0 +1,72 @@
+1. Use below command to allow the broswer to trust the certificate provided by the dotnet SDK
+   dotnet dev-certs https --trust
+
+2. No need to get alarmed, when https://localhost:5001/ gives "This localhost page can’t be found".
+    Just try with https://localhost:5001/weatherforecast, it will work.
+
+3. Every dotnet application has a program class which contains a main method. When the application runs for the first time
+    the main method gets executed.
+
+4. CreateDefaultBuilder Method:
+    This method initializes a new instance of the HostBuilder class with pre-configured defaults and returns it.
+    The following defaults are applied to the the returned IHostBuilder:
+        
+        1. Set the IHostEnvironment.ContentRootPath to the result of System.IO.Directory.GetCurrentDirectory().
+        2. Load host Iconfiguration from 'DOTNET_' prefixed environment variables.
+        3. Load host Iconfiguration from supplied command line arguments.
+        4. Load app Iconfiguration from 'appsettings.json' and 'appsettings.[IHostEnvironment.EnvironmentName].json'. 
+        5. Load app Iconfiguration from User Secrets when IHostEnvironment.EnvironmentName is Development using entry assembly.
+        6. Load app Iconfiguration from environment variables.
+        7. Load app Iconfiguration from supplied command line arguments.
+        8. Configure the ILoggerFactory to log to the console, debug and event source output.
+        9. Enabled scope validation on the dependecy injection container when when IHostEnvironment.EnvironmentName is Development.
+
+    It also tells us to use StartUp class.
+
+6. In Startup class constructor, Configuration is being injected. appsettings.Development.json is one of the Configuration files.
+    We should change the log level of the Microsoft to Information in that file. 
+    
+7. Coming back to start up class, it contains two methods i.e. ConfigureServices and Configure. 
+    ConfigureServices method commonly known as dependecy injection container.
+
+    If we want to make a class or services made available to other areas of the application, we can add them inside this method
+    and dotnet core will take care of the creation and deletion of these services.
+
+8. Configure method is used to configure the HTTP request pipeline. As we made our get request from broswer to api controller, 
+    our request goes through a series of middleware on the way in and on the way out.
+
+    if (env.IsDevelopment())
+    {
+        app.UseDeveloperExceptionPage();
+        app.UseSwagger();
+        app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DatingApp_API v1"));
+    }
+
+    First it checks whether it's in development mode, if it and it faces an exception, it uses development exception page.
+    It also use swagger for API documentation.
+
+    app.UseHttpsRedirection();
+
+    If a request comes as http, application redirects the request to a https endpoint.
+
+    app.UseRouting();
+
+    This tells us to use routing.
+
+    app.UseAuthorization();
+
+    This tells us to use Authorization. which at the moment not properly configured.
+
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapControllers();
+    });
+
+    Adds endpoints to the controller actions.
+
+
+
+
+
+
+
