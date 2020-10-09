@@ -82,6 +82,9 @@ EntityFrameowork
  8. Configuration
  9. Migrations
 
+ Installed Microsoft.EntityFrameworkCore.SqlServer, since I don't need all features of 
+ EntityFramework Core, that's why installed only the SQL Server portion of it.
+
 
 
 
