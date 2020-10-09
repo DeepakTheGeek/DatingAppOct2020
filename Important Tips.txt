@@ -65,6 +65,24 @@
     Adds endpoints to the controller actions.
 
 
+EntityFrameowork
+----------------
+ It is ORM tool. ORM stands for Object Relational Mapper. 
+ EntityFrameowork translates our code into SQL commands that operate on our tables.
+
+ Features
+ --------
+ 1. Querying
+ 2. Change Tracking
+ 3. Saving
+ 4. Concurrency
+ 5. Transactions
+ 6. Caching
+ 7. Built In Conventions
+ 8. Configuration
+ 9. Migrations
+
+
 
 
 
