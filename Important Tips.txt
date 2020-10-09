@@ -85,6 +85,27 @@ EntityFrameowork
  Installed Microsoft.EntityFrameworkCore.SqlServer, since I don't need all features of 
  EntityFramework Core, that's why installed only the SQL Server portion of it.
 
+ Note: Here, I have checked "Include Prerelease" in order to get the pre-release version of .NET 5.
+ Don't install pre-release version of third party nuget packages just to be safe.
+
+Adding EntityFrameowork tool using dotnet cli. First I had to uninstall old version using below command
+ dotnet tool uninstall dotnet-ef -g
+
+Now installed the latest version by going to https://www.nuget.org/ and searched "dotnet ef" and got the latest command.
+dotnet tool install --global dotnet-ef --version 5.0.0-rc.1.20451.13
+
+Now when you try to add your first migration, you will a get an error like this.
+
+    Your startup project 'DatingApp-API' doesn't reference Microsoft.EntityFrameworkCore.Design. 
+    This package is required for the Entity Framework Core Tools to work. 
+    Ensure your startup project is correct, install the package, and try again.
+ 
+ So, you first need install Microsoft.EntityFrameworkCore.Design nuget package 
+ and build your project and then try the above command.
+
+
+ 
+
 
 
 

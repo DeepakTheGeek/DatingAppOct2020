@@ -18,19 +18,19 @@ namespace DatingApp_API
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+        private readonly IConfiguration _config;
 
-        public IConfiguration Configuration { get; }
+        public Startup(IConfiguration config)
+        {
+            _config = config;
+        }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<DataContext>(options =>
             {
-                options.UseSqlServer("Connection string goes here");
+                options.UseSqlServer(_config.GetConnectionString("DefaultConnection"));
             });
 
             services.AddControllers();
