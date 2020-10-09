@@ -100,8 +100,22 @@ Now when you try to add your first migration, you will a get an error like this.
     This package is required for the Entity Framework Core Tools to work. 
     Ensure your startup project is correct, install the package, and try again.
  
- So, you first need install Microsoft.EntityFrameworkCore.Design nuget package 
- and build your project and then try the above command.
+So, you first need install Microsoft.EntityFrameworkCore.Design nuget package 
+and build your project and then try the above command.
+
+now we need to update the database using below command.
+dotnet ef database update.
+
+sample sql query to add to Users table
+
+INSERT INTO Users
+VALUES('Pravakar')
+
+INSERT INTO Users
+VALUES('Bijaya')
+
+INSERT INTO Users
+VALUES('Jagannath')
 
 
  
