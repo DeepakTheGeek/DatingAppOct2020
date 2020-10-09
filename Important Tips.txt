@@ -120,7 +120,7 @@
 14. once you test your api in postman, you will notice, by fault, .net core returns data
     in application/json format and properties in camelcase notation.
 
-15
+15. Using Asynchronous code to make the application more scallable.
 
 
 
