@@ -121,3 +121,60 @@
     in application/json format and properties in camelcase notation.
 
 15. Using Asynchronous code to make the application more scallable.
+
+
+
+Angular
+-------
+ when you run the application with ng-serve, angular bundler called webback builds and bundles
+ couple of javascripts file to index.html.
+
+Components
+-----------
+ Decorator that marks a class as an Angular component and provides configuration metadata that determines how the component 
+ should be processed, instantiated, and used at runtime.
+
+Components are the most basic UI building block of an Angular app. An Angular app contains a tree of Angular components.
+
+Angular components are a subset of directives, always associated with a template. Unlike other directives, 
+only one component can be instantiated for a given element in a template.
+
+A component must belong to an NgModule in order for it to be available to another component or application. 
+To make it a member of an NgModule, list it in the declarations field of the NgModule metadata.
+
+Module
+-------
+A Angular application must have at least one module.
+NgModule
+--------
+A decoration which makes a class as a ngModule and provides some metadata.
+it has normally 4 metadatas.
+1. declarations: 
+    It's an array which contains set of components, directives, pipes(declarable) that belong to that module.
+    A declarable:
+        is either a component, directive or pipe
+        can be added to a module's declarations array
+        belongs to one, and only one, module
+
+2. imports:
+    The set of NgModules whose exported declarables are available to templates in this module.
+
+3. providers: 
+    The set of injectable objects that are available in the injector of this module.
+    Dependencies whose providers are listed here become available for injection into 
+    any component, directive, pipe or service that is a child of this injector. 
+    
+4. bootstrap:
+    The set of components that are bootstrapped when this module is bootstrapped. 
+    The components listed here are automatically added to entryComponents.
+
+
+
+
+
+
+
+
+
+
+
