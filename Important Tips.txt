@@ -121,14 +121,3 @@
     in application/json format and properties in camelcase notation.
 
 15. Using Asynchronous code to make the application more scallable.
-
-
-
- 
-
-
-
-
-
-
-
