@@ -38,6 +38,8 @@ namespace DatingApp_API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DatingApp_API", Version = "v1" });
             });
+
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,6 +55,8 @@ namespace DatingApp_API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(policy => policy.WithOrigins("https://localhost:4200").AllowAnyHeader().AllowAnyMethod());
 
             app.UseAuthorization();
 
