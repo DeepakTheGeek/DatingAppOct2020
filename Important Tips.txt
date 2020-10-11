@@ -184,7 +184,13 @@
         app.UseCors(policy => policy.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod());
         you have to write it in between app.UseRouting() and app.UseEndpoints() line.
 
-        
+
+21. bootstrap
+    While using bootstrap in angular make sure to use, ngx-bootstrap rather than normal bootstrap
+    because bootstrap uses jquery under the hood, which is a similar DOM manipulating framework
+    like Angular. So if you use jquery inside Angular, it might cause problems in future.
+
+    After adding ngx-bootstrap, make sure to re-start the angular application.        
  
 
 
