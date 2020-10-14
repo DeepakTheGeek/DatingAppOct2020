@@ -3,6 +3,7 @@ using DatingApp_API.DTOs;
 using DatingApp_API.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,8 @@ namespace DatingApp_API.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<AppUser>> Register(RegisterDTO registerDTO)
         {
+            if (await UserNameExistsAsync(registerDTO.UserName)) return BadRequest("Username is taken");
+
             using var hmac = new HMACSHA512();
             var user = new AppUser
             {
@@ -35,6 +38,11 @@ namespace DatingApp_API.Controllers
             await _context.SaveChangesAsync();
 
             return user;
+        }
+
+        private async Task<bool> UserNameExistsAsync(string username)
+        {
+            return await _context.Users.AnyAsync(u => u.UserName == username);
         }
     }
 }
