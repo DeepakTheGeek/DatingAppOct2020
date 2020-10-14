@@ -192,9 +192,22 @@
 
     After adding ngx-bootstrap, make sure to re-start the angular application.        
  
+ 22. Storing Passwords:
+    One of the safe option of storing password is hashing the password, which means that we take their password, we add or apply
+    a hashing algorithm to it, and we end up with a password hash and we store the password hash in the database.
 
+    Now, hashing is one way only. You cannot calculate from a hash what it was before it was hashed.
+    So in theory, this is a pretty secure way of storing our passwords. if two users has same weak password,
+    But the problem with this particular method is that Bob and Tom have continued to use their weak password "letmein".
+    
+    But when we calculate the password hash, then the same algorithm is applied to the same password,
+    which means we get the same result. Now, if our database gets compromised, then the attacker knows 
+    that Bob and Tom have got exactly the same password. And if he can somehow calculate the password from this, 
+    then he's got access to two accounts.
 
+    Also, there are a lot websites are available which give you pre-decoded version of weak password, which is not a great thing.
 
+    So obhiously hashing is not good enough. So it's better to user password hash and salt.
 
 
 
