@@ -1,4 +1,5 @@
 ﻿using DatingApp_API.Data;
+using DatingApp_API.DTOs;
 using DatingApp_API.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,13 +21,13 @@ namespace DatingApp_API.Controllers
             _context = context;
         }
         [HttpPost("register")]
-        public async Task<ActionResult<AppUser>> Register(string username, string password)
+        public async Task<ActionResult<AppUser>> Register(RegisterDTO registerDTO)
         {
             using var hmac = new HMACSHA512();
             var user = new AppUser
             {
-                UserName = username,
-                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password)),
+                UserName = registerDTO.UserName,
+                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDTO.Password)),
                 PasswordSalt = hmac.Key
             };
 

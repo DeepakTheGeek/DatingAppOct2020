@@ -224,4 +224,8 @@
     instead of individual string parameters, we should provide 
     a object parameter which contains properties like username and password.
 
+24. DTO: Data Transfer Objects are very useful since it's bad practice to send an entity from as a response
+    becuase it might contain sensitive data or we might need all the properties of the entity and there is a chance of
+    circular reference exception if we use entities.
+
 
