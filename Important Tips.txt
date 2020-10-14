@@ -210,6 +210,18 @@
     So obhiously hashing is not good enough. So it's better to user password hash and salt.
 
 
+23. While sending httpost request, the content of the request body should have an object equivalent in the API endpoint.
+    Creating parameters won't work.
 
+    for example if the request body is like below
+    {
+        "username": "Pravakar",
+        "password": "Pravakar@1955"
+    }
+    then creating method like this won't work
+    public async Task<ActionResult<AppUser>> Register(string username, string password)
+
+    instead of individual string parameters, we should provide 
+    a object parameter which contains properties like username and password.
 
 
