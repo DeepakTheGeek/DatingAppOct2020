@@ -21,6 +21,7 @@ namespace DatingApp_API.Controllers
         {
             _context = context;
         }
+
         [HttpPost("register")]
         public async Task<ActionResult<AppUser>> Register(RegisterDTO registerDTO)
         {
@@ -29,7 +30,7 @@ namespace DatingApp_API.Controllers
             using var hmac = new HMACSHA512();
             var user = new AppUser
             {
-                UserName = registerDTO.UserName,
+                UserName = registerDTO.UserName.ToLower(),
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDTO.Password)),
                 PasswordSalt = hmac.Key
             };
@@ -40,9 +41,24 @@ namespace DatingApp_API.Controllers
             return user;
         }
 
+        [HttpPost("login")]
+        public async Task<ActionResult<AppUser>> Login(LoginDTO loginDTO)
+        {
+            var user = await _context.Users.SingleOrDefaultAsync(u => u.UserName == loginDTO.UserName.ToLower());
+            if (user == null) return Unauthorized("Invalid Username");
+
+            using var hmac = new HMACSHA512(user.PasswordSalt);
+            var passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDTO.Password));
+
+            if (Enumerable.SequenceEqual(passwordHash, user.PasswordHash)) 
+                return user;
+
+            return Unauthorized("Invalid password");
+        }
+
         private async Task<bool> UserNameExistsAsync(string username)
         {
-            return await _context.Users.AnyAsync(u => u.UserName == username);
+            return await _context.Users.AnyAsync(u => u.UserName == username.ToLower());
         }
     }
 }
