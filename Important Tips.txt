@@ -306,5 +306,6 @@
 
 32. In order to authenticate using JWT token, Microsoft.AspNetCore.Authentication.JwtBearer package needs to be installed.
 
-
+33. Extension methods enable you to "add" methods to existing types without creating a new derived type.
+    1. class and the static method must be static.
 
