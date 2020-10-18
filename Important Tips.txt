@@ -122,8 +122,6 @@
 
 15. Using Asynchronous code to make the application more scallable.
 
-
-
 16.Angular: when you run the application with ng-serve, angular bundler called webback builds and bundles
    couple of javascripts file to index.html.
 
@@ -192,11 +190,122 @@
 
     After adding ngx-bootstrap, make sure to re-start the angular application.        
  
+ 22. Storing Passwords:
+    One of the safe option of storing password is hashing the password, which means that we take their password, we add or apply
+    a hashing algorithm to it, and we end up with a password hash and we store the password hash in the database.
+
+    Now, hashing is one way only. You cannot calculate from a hash what it was before it was hashed.
+    So in theory, this is a pretty secure way of storing our passwords. if two users has same weak password,
+    But the problem with this particular method is that Bob and Tom have continued to use their weak password "letmein".
+    
+    But when we calculate the password hash, then the same algorithm is applied to the same password,
+    which means we get the same result. Now, if our database gets compromised, then the attacker knows 
+    that Bob and Tom have got exactly the same password. And if he can somehow calculate the password from this, 
+    then he's got access to two accounts.
+
+    Also, there are a lot websites are available which give you pre-decoded version of weak password, which is not a great thing.
+
+    So obhiously hashing is not good enough. So it's better to user password hash and salt.
+
+
+23. While sending httpost request, the content of the request body should have an object equivalent in the API endpoint.
+    Creating parameters won't work.
+
+    for example if the request body is like below
+    {
+        "username": "Pravakar",
+        "password": "Pravakar@1955"
+    }
+    then creating method like this won't work
+    public async Task<ActionResult<AppUser>> Register(string username, string password)
+
+    instead of individual string parameters, we should provide 
+    a object parameter which contains properties like username and password.
+
+24. DTO: Data Transfer Objects are very useful since it's bad practice to send an entity from as a response
+    becuase it might contain sensitive data or we might need all the properties of the entity and there is a chance of
+    circular reference exception if we use entities.
+
+25. ApiController attribute automatically validates 
+    if the paramters are valid or not and also bind request body to endpoint parameters.
+
+26. To delete a database use 'dotnet ef database drop' and to create and update the database upto the latest Migrations
+    use 'dotnet ef database update'.
+
+27. JWT:
+    JSON Web Token (JWT) is an open standard (RFC 7519) that defines a compact and 
+    self-contained way for securely transmitting information between parties as a JSON object. 
+
+    Authorization: This is the most common scenario for using JWT. Once the user is logged in, 
+    each subsequent request will include the JWT, allowing the user to access routes, services, 
+    and resources that are permitted with that token. Single Sign On is a feature that widely uses JWT nowadays, 
+    because of its small overhead and its ability to be easily used across different domains.
+
+    Single sign-on (SSO) is an authentication method that enables users to securely authenticate with multiple applications 
+    and websites by using just one set of credentials.
+
+    In its compact form, JSON Web Tokens consist of three parts separated by dots (.), which are:
+
+    Header
+    Payload
+    Signature
+
+
+    Header
+    ------
+    The header typically consists of two parts: the type of the token, which is JWT, 
+    and the signing algorithm being used, such as HMAC SHA256 or RSA.
+
+    example: 
+    {
+        "alg": "HS256",
+        "typ": "JWT"
+    }
+
+    Payload:
+    -------
+    The second part of the token is the payload, which contains the claims. Claims are statements about an entity 
+    (typically, the user) and additional data. There are three types of claims: registered, public, and private claims.
+
+    Signature
+    ---------
+    To create the signature part you have to take the encoded header, the encoded payload, a secret, 
+    the algorithm specified in the header, and sign that.
+
+    The signature is used to verify the message wasn't changed along the way, and, in the case of tokens signed with a private key, 
+    it can also verify that the sender of the JWT is who it says it is.
 
 
 
+    client                                                                  Server
+  ----------                  sends username and password                 ----------
+                ----------------------------------------------------->
+                    validates credentials and returns a token
+                <----------------------------------------------------
+                        Sends JWT with further request
+                ----------------------------------------------------->
+                Server verifies the token and sends back the response
+                <----------------------------------------------------
 
+    Benefits
+    --------
+    1. No session to manage
+    2. Portable: single token can be used with multiple backends
+    3. No Cookie: Mobile friendly
+    4. Performance: Once token is issued, no need for database call to verify user
 
+28. AddScoped:
+    AddScoped is scoped to the life time of the http request. When the service is injected to the controller, 
+    a new instance of the service is created and when the the request is finished, the service gets disposed.
+    
+29. One of the main reason for creating Interface is unit testing. since an Interface only contains, it's easy to mock it.
 
+30. To use JWT token, System.IdentityModel.Tokens.Jwt package needs to be installed.
 
+31. SymmetricSecurityKey is a type of encription, where a single key is used for both encrypt and decrypt electronic information.
+
+32. In order to authenticate using JWT token, Microsoft.AspNetCore.Authentication.JwtBearer package needs to be installed.
+
+33. Extension methods enable you to "add" methods to existing types without creating a new derived type.
+    1. class and the static method must be static.
 
