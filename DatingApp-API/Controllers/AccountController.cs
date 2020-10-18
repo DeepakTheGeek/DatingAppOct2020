@@ -1,6 +1,7 @@
 ﻿using DatingApp_API.Data;
 using DatingApp_API.DTOs;
 using DatingApp_API.Entities;
+using DatingApp_API.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -16,14 +17,16 @@ namespace DatingApp_API.Controllers
     public class AccountController : BaseApiController
     {
         private readonly DataContext _context;
+        private readonly ITokenService _tokenService;
 
-        public AccountController(DataContext context)
+        public AccountController(DataContext context, ITokenService tokenService)
         {
             _context = context;
+            _tokenService = tokenService;
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult<AppUser>> Register(RegisterDTO registerDTO)
+        public async Task<ActionResult<UserDTO>> Register(RegisterDTO registerDTO)
         {
             if (await UserNameExistsAsync(registerDTO.UserName)) return BadRequest("Username is taken");
 
@@ -38,11 +41,11 @@ namespace DatingApp_API.Controllers
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            return user;
+            return new UserDTO { Username = user.UserName, Token = _tokenService.CreateToken(user) };
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<AppUser>> Login(LoginDTO loginDTO)
+        public async Task<ActionResult<UserDTO>> Login(LoginDTO loginDTO)
         {
             var user = await _context.Users.SingleOrDefaultAsync(u => u.UserName == loginDTO.UserName.ToLower());
             if (user == null) return Unauthorized("Invalid Username");
@@ -50,8 +53,8 @@ namespace DatingApp_API.Controllers
             using var hmac = new HMACSHA512(user.PasswordSalt);
             var passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDTO.Password));
 
-            if (Enumerable.SequenceEqual(passwordHash, user.PasswordHash)) 
-                return user;
+            if (Enumerable.SequenceEqual(passwordHash, user.PasswordHash))
+                return new UserDTO { Username = user.UserName, Token = _tokenService.CreateToken(user) };
 
             return Unauthorized("Invalid password");
         }
