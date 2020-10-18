@@ -300,3 +300,11 @@
     
 29. One of the main reason for creating Interface is unit testing. since an Interface only contains, it's easy to mock it.
 
+30. To use JWT token, System.IdentityModel.Tokens.Jwt package needs to be installed.
+
+31. SymmetricSecurityKey is a type of encription, where a single key is used for both encrypt and decrypt electronic information.
+
+32. In order to authenticate using JWT token, Microsoft.AspNetCore.Authentication.JwtBearer package needs to be installed.
+
+
+
