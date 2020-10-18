@@ -162,7 +162,6 @@
         The set of components that are bootstrapped when this module is bootstrapped. 
         The components listed here are automatically added to entryComponents.
 
-
 19. OnInit
     A lifecycle hook that is called after Angular has initialized all data-bound properties of a directive. 
     Define an ngOnInit() method to handle any additional initialization tasks.
@@ -181,7 +180,6 @@
     2. Add the following line inside Configure method
         app.UseCors(policy => policy.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod());
         you have to write it in between app.UseRouting() and app.UseEndpoints() line.
-
 
 21. bootstrap
     While using bootstrap in angular make sure to use, ngx-bootstrap rather than normal bootstrap
@@ -206,7 +204,6 @@
     Also, there are a lot websites are available which give you pre-decoded version of weak password, which is not a great thing.
 
     So obhiously hashing is not good enough. So it's better to user password hash and salt.
-
 
 23. While sending httpost request, the content of the request body should have an object equivalent in the API endpoint.
     Creating parameters won't work.
@@ -308,4 +305,6 @@
 
 33. Extension methods enable you to "add" methods to existing types without creating a new derived type.
     1. class and the static method must be static.
+
+34. To get inside multiple folder, use cd src/app
 
