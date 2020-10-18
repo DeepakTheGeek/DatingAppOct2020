@@ -293,3 +293,10 @@
     2. Portable: single token can be used with multiple backends
     3. No Cookie: Mobile friendly
     4. Performance: Once token is issued, no need for database call to verify user
+
+28. AddScoped:
+    AddScoped is scoped to the life time of the http request. When the service is injected to the controller, 
+    a new instance of the service is created and when the the request is finished, the service gets disposed.
+    
+29. One of the main reason for creating Interface is unit testing. since an Interface only contains, it's easy to mock it.
+
